@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float rotateSpeed = 5f; //회전속도
     public float gravity = 10;
     private Vector3 moveDirection;
+    private float mouseX;
 
     private PlayerInput playerInput;
     private Animator playerAnimator;
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
         if (playerController.isGrounded) //땅에 닿아있으면
         {
             moveDirection = new Vector3(playerInput.horizontalmove, 0, playerInput.verticalmove);
+            moveDirection = playerController.transform.TransformDirection(moveDirection); // 로컬좌표를 월드좌표로 변환
         }
         else //땅에 닿아있지 않으면
         {
@@ -42,5 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Rotate()
     {
+        mouseX += playerInput.horizontalrotate * rotateSpeed;
+        transform.localRotation = Quaternion.Euler(0, mouseX, 0);
     }
 }

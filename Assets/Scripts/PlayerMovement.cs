@@ -8,8 +8,9 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f; //이동속도
     public float rotateSpeed = 5f; //회전속도
     public float gravity = 10;
+    public Transform head;
     private Vector3 moveDirection;
-    private float mouseX;
+    private float mouseX, mouseY;
 
     private PlayerInput playerInput;
     private Animator playerAnimator;
@@ -45,6 +46,9 @@ public class PlayerMovement : MonoBehaviour
     private void Rotate()
     {
         mouseX += playerInput.horizontalrotate * rotateSpeed;
-        transform.localRotation = Quaternion.Euler(0, mouseX, 0);
+        mouseY += playerInput.verticalrotate * rotateSpeed;
+
+        transform.localRotation = Quaternion.Euler(0, mouseX, 0); //몸 (좌우회전)
+        head.localRotation = Quaternion.Euler(-mouseY, 0, 0); //머리 (상하회전)
     }
 }

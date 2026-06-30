@@ -7,17 +7,19 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f; //이동속도
     public float rotateSpeed = 5f; //회전속도
-    public float gravity = 10;
-    public Transform head;
-    private Vector3 moveDirection;
-    private float mouseX, mouseY;
+    public float gravity = 10; //중력
+    public Transform head; //머리
+    private Vector3 moveDirection; //이동방향
+    private float mouseX, mouseY; //마우스 좌우, 상하 회전값
 
-    private PlayerInput playerInput;
-    private Animator playerAnimator;
-    private CharacterController playerController;
+    private PlayerInput playerInput; //플레이어 입력
+    private Animator playerAnimator; //플레이어 애니메이터
+    private CharacterController playerController; //플레이어 캐릭터 컨트롤러
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+
         playerInput = GetComponent<PlayerInput>();
         playerController = GetComponent<CharacterController>();
         playerAnimator = GetComponent<Animator>();
@@ -28,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
         Rotate();
         Move();
     }
-    private void Move()
+    private void Move() //이동
     {
         if (playerController.isGrounded) //땅에 닿아있으면
         {
@@ -43,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         playerController.Move(moveDirection * moveSpeed * Time.fixedDeltaTime);
     }
 
-    private void Rotate()
+    private void Rotate() //회전
     {
         mouseX += playerInput.horizontalrotate * rotateSpeed;
         mouseY += playerInput.verticalrotate * rotateSpeed;

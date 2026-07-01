@@ -2,28 +2,25 @@ using UnityEngine;
 
 public class FlashLight : MonoBehaviour
 {
-    private bool playerGetLight = false; //true일 경우 손전등 on
-    private Light myLight; // light 컴포너트를 담는 변수
-    void Start()
+    private bool useLight = false;
+    private Light myLight;
+
+    private void Start()
     {
-        myLight = GetComponent<Light>(); //오브젝트가 가진 light 컴포넌트를 가져옴
+        myLight = GetComponent<Light>();
+        myLight.enabled = false;
     }
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R)) // R키를 누르면 손전등 on/off
+        if (useLight && Input.GetKeyDown(KeyCode.F))
         {
-            playerGetLight = playerGetLight ? false : true;
+            myLight.enabled = !myLight.enabled;
         }
+    }
 
-        if (playerGetLight == false) 
-        {
-            myLight.enabled = false;
-        }
-
-        if (playerGetLight == true)
-        {
-            myLight.enabled = true;
-        }
+    public void GetLight()
+    {
+        useLight = true;
     }
 }

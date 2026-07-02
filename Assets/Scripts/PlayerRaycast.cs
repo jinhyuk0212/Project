@@ -32,6 +32,14 @@ public class PlayerRayCast : MonoBehaviour
                 Debug.Log("FlashLight Get!"); //디버그 로그 출력
                 flashlight.GetLight(); //FlashLight 스크립트의 GetLight() 함수 호출
             }
+
+            else if (hit.collider.CompareTag("Door"))
+            {
+                Debug.Log("Open Door"); //디버그 로그 출력
+                Door door = hit.collider.GetComponent<Door>(); //Door 스크립트 가져오기
+                door.ChangeDoorState(); //Door 스크립트의 ChangeDoorState() 함수 호출
+            }
+        
         }
     }
 }

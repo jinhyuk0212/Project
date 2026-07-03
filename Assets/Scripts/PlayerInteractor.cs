@@ -1,17 +1,17 @@
 using UnityEngine;
 
-public class PlayerRayCast : MonoBehaviour
+public class PlayerInteractor : MonoBehaviour
 {
     private RaycastHit hit; //ray의 충돌 정보를 담는 변수
     private Ray ray; //ray를 담는 변수
-
-    private PlayerInput playerinput;
-    private FlashLight flashlight;
+    private FlashLight flashLight; // FlashLight 컴포넌트를 담는 변수
+    private PlayerInput playerinput; // PlayerInput 컴포넌트를 담는 변수
+    public FlashLight FlashLight => flashLight; // FlashLight 컴포넌트에 대한 public getter
 
     private void Start()
     {
         playerinput = GetComponent<PlayerInput>();
-        flashlight = GetComponentInChildren<FlashLight>();
+        flashLight = GetComponentInChildren<FlashLight>(); 
     }
     private void Update()
     {
@@ -27,19 +27,12 @@ public class PlayerRayCast : MonoBehaviour
         ray = new Ray(transform.position, transform.forward); //ray 생성
         if (Physics.Raycast(ray, out hit, 30f)) //raycast를 쏘고 충돌 정보가 hit에 담김
         {
-            if (hit.collider.CompareTag("FlashLight"))
-            {
-                Debug.Log("FlashLight Get!"); //디버그 로그 출력
-                flashlight.GetLight(); //FlashLight 스크립트의 GetLight() 함수 호출
-            }
+            IInteractable interactable = hit.collider.GetComponent<IInteractable>(); //충돌한 오브젝트에 IInteractable 인터페이스가 있는지 확인
 
-            else if (hit.collider.CompareTag("Door"))
+            if (interactable != null)
             {
-                Debug.Log("Open Door"); //디버그 로그 출력
-                Door door = hit.collider.GetComponent<Door>(); //Door 스크립트 가져오기
-                door.ChangeDoorState(); //Door 스크립트의 ChangeDoorState() 함수 호출
+                interactable.Interact(this);
             }
-        
         }
     }
 }

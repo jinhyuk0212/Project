@@ -1,28 +1,39 @@
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, IInteractable
 {
-    private bool open = false; // 문이 열려있는지 여부를 나타내는 변수
-    private float doorOpenAngle = 90f; // 문이 열렸을 때 회전 각도
-    private float doorCloseAngle = 0f; // 문이 닫혔을 때 회전 각도
-    private float smooth = 2f; // 문이 회전하는 속도를 조절하는 변수
+    private bool open = false;
 
-    void Update()
+    private float doorOpenAngle = 90f;
+    private float doorCloseAngle = 0f;
+    private float smooth = 2f;
+
+    private Quaternion targetRotation;
+
+    private void Start() // 초기 회전값 설정
     {
-        if (open) // 문이 열려있으면 회전 각도를 doorOpenAngle,문이 닫혀있으면 doorCloseAngle로 설정
-        {
-            Quaternion targetRotation = Quaternion.Euler(0, doorOpenAngle, 0); // 회전 각도를 쿼터니언으로 변환
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * smooth);
-        }
-        else
-        {
-            Quaternion targetRotation2 = Quaternion.Euler(0, doorCloseAngle, 0); // 회전 각도를 쿼터니언으로 변환
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation2, Time.deltaTime * smooth);
-        }
+        targetRotation = Quaternion.Euler(0, doorCloseAngle, 0);
     }
-    public void ChangeDoorState() // 문 상태를 바꾸는 함수
+
+    private void Update() // 문 회전
+    {
+        transform.localRotation = Quaternion.Slerp(
+            transform.localRotation,
+            targetRotation,
+            Time.deltaTime * smooth); // Slerp를 사용하여 부드럽게 회전
+    }
+
+    private void ChangeDoorState() // 문 열기/닫기 상태 변경
     {
         open = !open;
+
+        float angle = open ? doorOpenAngle : doorCloseAngle;
+
+        targetRotation = Quaternion.Euler(0, angle, 0);
+    }
+
+    public void Interact(PlayerInteractor interactor) // IInteractable 인터페이스 구현
+    {
+        ChangeDoorState();
     }
 }

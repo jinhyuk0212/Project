@@ -6,11 +6,14 @@ public class PlayerInteractor : MonoBehaviour
     private Ray ray; //ray를 담는 변수
     private FlashLight flashLight; // FlashLight 컴포넌트를 담는 변수
     private PlayerInput playerinput; // PlayerInput 컴포넌트를 담는 변수
+    private PlayerInventory inventory;
     public FlashLight FlashLight => flashLight; // FlashLight 컴포넌트에 대한 public getter
+    public PlayerInventory Inventory => inventory; // PlayerInventory 컴포넌트에 대한 public getter
 
     private void Start()
     {
         playerinput = GetComponent<PlayerInput>();
+        inventory = GetComponent<PlayerInventory>();
         flashLight = GetComponentInChildren<FlashLight>(); 
     }
     private void Update()

@@ -3,8 +3,8 @@ using UnityEngine;
 public class Door : MonoBehaviour, IInteractable
 {
     [SerializeField] private string requ; // 문을 열기 위해 필요한 아이템 이름
-    private bool open = false;
-
+    private bool open = false; // 문 열림 상태
+    private bool isUnlocked = false; // 문 잠금 상태
     private float doorOpenAngle = 90f;
     private float doorCloseAngle = 0f;
     private float smooth = 2f;
@@ -35,10 +35,15 @@ public class Door : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteractor interactor) // IInteractable 인터페이스 구현
     {
-        if (interactor.Inventory.HasItem(requ) == false)
+        if (isUnlocked == false)
         {
-            Debug.Log("문을 열기 위해 필요한 아이템이 없습니다.");
-            return;
+            if (interactor.Inventory.HasItem(requ) == false)
+            {
+                Debug.Log("문을 열기 위해 필요한 아이템이 없습니다.");
+                return;
+            }
+            interactor.Inventory.RemoveItem(requ);
+            isUnlocked = true;
         }
         ChangeDoorState();
     }

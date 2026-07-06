@@ -35,16 +35,16 @@ public class Door : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteractor interactor) // IInteractable 인터페이스 구현
     {
-        if (isUnlocked == false)
+        if (isUnlocked == false) // 문이 잠겨있다면
         {
-            if (interactor.Inventory.HasItem(requ) == false)
+            if (interactor.Inventory.HasItem(requ) == false) // 플레이어가 필요한 아이템을 가지고 있지 않다면
             {
                 Debug.Log("문을 열기 위해 필요한 아이템이 없습니다.");
                 return;
             }
-            interactor.Inventory.RemoveItem(requ);
-            isUnlocked = true;
+            interactor.Inventory.RemoveItem(requ); // 플레이어가 필요한 아이템을 가지고 있다면 아이템 제거
+            isUnlocked = true; // 문 잠금 해제
         }
-        ChangeDoorState();
+        ChangeDoorState(); // 문 열기/닫기 상태 변경
     }
 }

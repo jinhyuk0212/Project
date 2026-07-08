@@ -50,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
         mouseX += playerInput.horizontalrotate * rotateSpeed;
         mouseY += playerInput.verticalrotate * rotateSpeed;
 
+        mouseY = Mathf.Clamp(mouseY, -60f, 40f); // 상하 회전 제한
+
         transform.localRotation = Quaternion.Euler(0, mouseX, 0); //몸 (좌우회전)
         head.localRotation = Quaternion.Euler(-mouseY, 0, 0); //머리 (상하회전)
     }

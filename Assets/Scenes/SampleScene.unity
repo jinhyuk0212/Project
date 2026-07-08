@@ -364,7 +364,7 @@ MonoBehaviour:
   camcorderObject: {fileID: 1637277870}
   playerCamera: {fileID: 1547502310}
   volume: {fileID: 832575518}
-  nightVisionLight: {fileID: 0}
+  nightVisionLight: {fileID: 20210557}
 --- !u!1 &190870041 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9056158871388048965, guid: 9495dc16aa5b78e4da923bbd9bfc92d4, type: 3}

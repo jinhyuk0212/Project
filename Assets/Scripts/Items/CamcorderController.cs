@@ -15,13 +15,18 @@ public class CamcorderController : MonoBehaviour
     private FilmGrain filmGrain; // 포스트 프로세싱 효과: 필름 그레인
     private Vignette vignette; // 포스트 프로세싱 효과: 비네팅
     private ColorAdjustments colorAdjustments; // 포스트 프로세싱 효과: 색상 조정
-    private bool isAnimating = false; // 애니메이션 진행 중인지 여부
-
+    
     private float normalFOV = 50f; 
     private float camcorderFOV = 50f;
+    private float maxEnergy = 100f;     // 나이트 비전 모드 최대 에너지
+    private float minUseEnergy = 10f;   // 나이트 비전 모드 최소 사용 가능 에너지
+    private float drainSpeed = 10f;     // 켰을 때 초당 소모량
+    private float rechargeSpeed = 5f;   // 껐을 때 초당 회복량
 
+    private float currentEnergy;        // 현재 에너지
     private bool isRaised = false; // 캠코더가 들어올려진 상태인지 여부
     private bool isNightVision = false; // 나이트 비전 모드 활성화 여부
+    private bool isAnimating = false; // 애니메이션 진행 중인지 여부
 
     private void Awake()
     {
@@ -34,22 +39,61 @@ public class CamcorderController : MonoBehaviour
 
     private void Update()
     {
-        if (!isAnimating && Input.GetMouseButtonDown(1)) // 마우스 오른쪽 버튼 클릭 시 캠코더 들어올리기/내리기
+        HandleCamcorderInput();// 캠코더 입력 처리
+        HandleNightVisionInput(); // 나이트 비전 입력 처리
+        HandleNightVisionEnergy(); // 나이트 비전 에너지 처리
+    }
+
+    // 마우스 오른쪽 버튼 입력 시 캠코더 들어올리기/내리기 토글
+    private void HandleCamcorderInput() 
+    {
+        if (!isAnimating && Input.GetMouseButtonDown(1)) 
         {
             isAnimating = true;
 
             isRaised = !isRaised;
             animator.SetBool("IsRaised", isRaised);
 
-            if (!isRaised) // 캠코더를 내릴 때 나이트 비전 모드 해제
+            if (!isRaised)
                 SetNightVision(false);
         }
-
-        if (Input.GetKeyDown(KeyCode.N) && isRaised) // N 키를 눌러 나이트 비전 모드 토글
+    }
+    // N 키 입력 시 나이트 비전 모드 토글, 캠코더가 들어올려진 상태에서만 가능
+    private void HandleNightVisionInput()
+    {
+        if (Input.GetKeyDown(KeyCode.N) && isRaised) // N 키 입력 시 나이트 비전 모드 토글, 캠코더가 들어올려진 상태에서만 가능
         {
-            SetNightVision(!isNightVision);
+            if (isNightVision)
+            {
+                SetNightVision(false);
+            }
+            else if (currentEnergy >= minUseEnergy)
+            {
+                SetNightVision(true);
+            }
         }
     }
+
+    // 나이트 비전 모드일 때 에너지 감소, 아닐 때 에너지 회복
+    private void HandleNightVisionEnergy()
+    {
+        if (isNightVision)
+        {
+            currentEnergy -= drainSpeed * Time.deltaTime;
+
+            if (currentEnergy <= 0f)
+            {
+                currentEnergy = 0f;
+                SetNightVision(false);
+            }
+        }
+        else
+        {
+            currentEnergy += rechargeSpeed * Time.deltaTime;
+            currentEnergy = Mathf.Clamp(currentEnergy, 0f, maxEnergy);
+        }
+    }
+
 
     // Raise 애니메이션 시작
     public void ShowCamcorder() 

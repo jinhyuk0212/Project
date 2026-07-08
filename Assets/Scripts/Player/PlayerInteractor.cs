@@ -34,7 +34,7 @@ public class PlayerInteractor : MonoBehaviour
     {
         ray = new Ray(cameraTransform.position, cameraTransform.forward);
 
-        if (Physics.Raycast(ray, out hit, 3f))
+        if (Physics.Raycast(ray, out hit, 1.5f))
         {
             currentInteractable = hit.collider.GetComponent<IInteractable>();
 

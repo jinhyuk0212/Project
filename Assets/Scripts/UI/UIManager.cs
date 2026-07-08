@@ -6,7 +6,7 @@ public class UIManager : MonoBehaviour
     [Header("Crosshair")]
     [SerializeField] private Image crosshairImage;
     [SerializeField] private Color normalColor = Color.white;
-    [SerializeField] private Color interactColor = Color.green;
+    [SerializeField] private Color interactColor = Color.grey;
 
     [Header("Interact Text")]
     [SerializeField] private TMP_Text interactText;

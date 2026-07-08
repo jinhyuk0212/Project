@@ -15,6 +15,7 @@ public class CamcorderController : MonoBehaviour
     private FilmGrain filmGrain; // 포스트 프로세싱 효과: 필름 그레인
     private Vignette vignette; // 포스트 프로세싱 효과: 비네팅
     private ColorAdjustments colorAdjustments; // 포스트 프로세싱 효과: 색상 조정
+    private bool isAnimating = false; // 애니메이션 진행 중인지 여부
 
     private float normalFOV = 50f; 
     private float camcorderFOV = 50f;
@@ -33,8 +34,10 @@ public class CamcorderController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1)) // 마우스 오른쪽 버튼 클릭 시 캠코더 들어올리기/내리기
+        if (!isAnimating && Input.GetMouseButtonDown(1)) // 마우스 오른쪽 버튼 클릭 시 캠코더 들어올리기/내리기
         {
+            isAnimating = true;
+
             isRaised = !isRaised;
             animator.SetBool("IsRaised", isRaised);
 
@@ -58,6 +61,7 @@ public class CamcorderController : MonoBehaviour
     public void HideCamcorder()
     {
         camcorderObject.SetActive(false);
+        isAnimating = false;
     }
 
     public void SetCamcorder() // 카메라를 캠코더 모드로 설정

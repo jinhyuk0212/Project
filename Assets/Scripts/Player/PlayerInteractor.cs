@@ -6,7 +6,9 @@ public class PlayerInteractor : MonoBehaviour
     private Ray ray; //ray를 담는 변수
     private FlashLight flashLight; // FlashLight 컴포넌트를 담는 변수
     private PlayerInput playerinput; // PlayerInput 컴포넌트를 담는 변수
-    private PlayerInventory inventory;
+    private PlayerInventory inventory; // PlayerInventory 컴포넌트를 담는 변수
+    private IInteractable currentInteractable; // 현재 상호작용 가능한 오브젝트를 담는 변수
+    [SerializeField] private UIManager uiManager; // UIManager 컴포넌트를 담는 변수
     public FlashLight FlashLight => flashLight; // FlashLight 컴포넌트에 대한 public getter
     public PlayerInventory Inventory => inventory; // PlayerInventory 컴포넌트에 대한 public getter
 
@@ -18,24 +20,33 @@ public class PlayerInteractor : MonoBehaviour
     }
     private void Update()
     {
-        if (playerinput.interact) //아이템 획득 입력이 들어왔는지 확인
+        CheckInteractable(); // 매 프레임 바라보는 대상 체크
+
+        if (playerinput.interact && currentInteractable != null) // 상호작용 입력이 들어왔고, 현재 상호작용 가능한 오브젝트가 존재하면
         {
-            ObjectHit(); //아이템 획득 입력이 들어오면 ObjectHit() 함수 호출
-            Debug.Log("Interact Input Detected"); //디버그 로그 출력")
+            currentInteractable.Interact(this); // 상호작용 실행
+            Debug.Log("Interact Input Detected");
         }
     }
 
-    private void ObjectHit()
+    private void CheckInteractable() // 플레이어가 바라보는 대상이 상호작용 가능한 오브젝트인지 체크
     {
-        ray = new Ray(transform.position, transform.forward); //ray 생성
-        if (Physics.Raycast(ray, out hit, 30f)) //raycast를 쏘고 충돌 정보가 hit에 담김
-        {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>(); //충돌한 오브젝트에 IInteractable 인터페이스가 있는지 확인
+        ray = new Ray(transform.position, transform.forward);
 
-            if (interactable != null)
+        if (Physics.Raycast(ray, out hit, 3f))
+        {
+            currentInteractable = hit.collider.GetComponent<IInteractable>();
+
+            if (currentInteractable != null)
             {
-                interactable.Interact(this);
+                uiManager.SetCrosshairInteract(); // 상호작용 가능한 오브젝트를 바라보고 있을 때 크로스헤어 변경
+                uiManager.ShowInteractText("E"); // 상호작용 가능한 오브젝트를 바라보고 있을 때 상호작용 텍스트 표시
+                return;
             }
         }
+
+        currentInteractable = null; // 상호작용 가능한 오브젝트가 없을 때 currentInteractable을 null로 설정
+        uiManager.SetCrosshairNormal(); // 상호작용 가능한 오브젝트를 바라보고 있지 않을 때 크로스헤어 원래대로 변경
+        uiManager.HideInteractText(); // 상호작용 가능한 오브젝트를 바라보고 있지 않을 때 상호작용 텍스트 숨김
     }
 }

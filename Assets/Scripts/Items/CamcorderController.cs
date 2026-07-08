@@ -10,6 +10,7 @@ public class CamcorderController : MonoBehaviour
     [SerializeField] private CinemachineCamera playerCamera; // 플레이어 카메라
     [SerializeField] private Volume volume; // 포스트 프로세싱 볼륨
     [SerializeField] private Light nightVisionLight; // 나이트 비전용 라이트
+    [SerializeField] private GameObject[] nightVisionObjects; // 나이트비전일 때만 보일 오브젝트들
 
     private FilmGrain filmGrain; // 포스트 프로세싱 효과: 필름 그레인
     private Vignette vignette; // 포스트 프로세싱 효과: 비네팅
@@ -87,6 +88,12 @@ public class CamcorderController : MonoBehaviour
 
         if (nightVisionLight != null) // 나이트 비전 라이트 활성화/비활성화
             nightVisionLight.enabled = value;
+
+        foreach (GameObject obj in nightVisionObjects) // 나이트 비전 모드일 때만 보일 오브젝트 활성화/비활성화
+        {
+            if (obj != null)
+                obj.SetActive(value);
+        }
 
         if (colorAdjustments != null) // 색상 조정 효과 적용
         {

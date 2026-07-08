@@ -176,9 +176,9 @@ Light:
   m_GameObject: {fileID: 20210555}
   m_Enabled: 1
   serializedVersion: 12
-  m_Type: 0
+  m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1000
+  m_Intensity: 100
   m_Range: 40
   m_SpotAngle: 58.174995
   m_InnerSpotAngle: 0
@@ -1882,7 +1882,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   crosshairImage: {fileID: 2072697406}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
-  interactColor: {r: 0, g: 1, b: 0, a: 1}
+  interactColor: {r: 0.5, g: 0.4976415, b: 0.4976415, a: 1}
   interactText: {fileID: 1889006844}
 --- !u!4 &2086140493
 Transform:

@@ -9,6 +9,7 @@ public class PlayerInteractor : MonoBehaviour
     private PlayerInventory inventory; // PlayerInventory 컴포넌트를 담는 변수
     private IInteractable currentInteractable; // 현재 상호작용 가능한 오브젝트를 담는 변수
     [SerializeField] private UIManager uiManager; // UIManager 컴포넌트를 담는 변수
+    [SerializeField] private Transform cameraTransform;
     public FlashLight FlashLight => flashLight; // FlashLight 컴포넌트에 대한 public getter
     public PlayerInventory Inventory => inventory; // PlayerInventory 컴포넌트에 대한 public getter
 
@@ -31,7 +32,7 @@ public class PlayerInteractor : MonoBehaviour
 
     private void CheckInteractable() // 플레이어가 바라보는 대상이 상호작용 가능한 오브젝트인지 체크
     {
-        ray = new Ray(transform.position, transform.forward);
+        ray = new Ray(cameraTransform.position, cameraTransform.forward);
 
         if (Physics.Raycast(ray, out hit, 3f))
         {

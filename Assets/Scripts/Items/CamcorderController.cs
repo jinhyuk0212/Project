@@ -41,7 +41,7 @@ public class CamcorderController : MonoBehaviour
                 SetNightVision(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.N)) // N 키를 눌러 나이트 비전 모드 토글
+        if (Input.GetKeyDown(KeyCode.N) && isRaised) // N 키를 눌러 나이트 비전 모드 토글
         {
             SetNightVision(!isNightVision);
         }

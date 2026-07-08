@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 20210556}
   - component: {fileID: 20210559}
   m_Layer: 0
-  m_Name: Flash Light
+  m_Name: NightVisionLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,10 +178,10 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 15
+  m_Intensity: 100
   m_Range: 40
-  m_SpotAngle: 55.792213
-  m_InnerSpotAngle: 47.59429
+  m_SpotAngle: 58.174995
+  m_InnerSpotAngle: 0
   m_CookieSize2D: {x: 0.5, y: 0.5}
   m_Shadows:
     m_Type: 0
@@ -362,6 +362,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CamcorderController
   animator: {fileID: 168444501}
   camcorderObject: {fileID: 1637277870}
+  playerCamera: {fileID: 1547502310}
+  volume: {fileID: 832575518}
+  nightVisionLight: {fileID: 0}
 --- !u!1 &190870041 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9056158871388048965, guid: 9495dc16aa5b78e4da923bbd9bfc92d4, type: 3}
@@ -765,7 +768,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5188369671262896383, guid: c6d32d21dcf08bb429cfdb8f9e118b9d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5188369671262896383, guid: c6d32d21dcf08bb429cfdb8f9e118b9d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -773,7 +776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5188369671262896383, guid: c6d32d21dcf08bb429cfdb8f9e118b9d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.031
       objectReference: {fileID: 0}
     - target: {fileID: 5188369671262896383, guid: c6d32d21dcf08bb429cfdb8f9e118b9d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -891,52 +894,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1032978494
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1032978495}
-  - component: {fileID: 1032978496}
-  m_Layer: 0
-  m_Name: CamcorderController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1032978495
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1032978494}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.99992776, z: 0, w: 0.012026126}
-  m_LocalPosition: {x: 1.2905672, y: -0.78, z: -0.7798845}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1441610109}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1032978496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1032978494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5f345c94756c8140bc8bdb484bcdf8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CamcorderController
-  animator: {fileID: 168444501}
-  camcorderObject: {fileID: 0}
 --- !u!4 &1146535202 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2027129844701058055, guid: 9495dc16aa5b78e4da923bbd9bfc92d4, type: 3}
@@ -1137,7 +1094,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1032978495}
   - {fileID: 201015252}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 178.622, z: 0}
@@ -1203,7 +1159,7 @@ GameObject:
   - component: {fileID: 1547502313}
   - component: {fileID: 1547502312}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Player Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -474,7 +474,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.53333336
-    functionName: SetCamcorderFOV
+    functionName: SetCamcorder
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

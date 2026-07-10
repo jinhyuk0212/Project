@@ -5,6 +5,7 @@ public class UIManager : MonoBehaviour
 {
     [Header("Crosshair")]
     [SerializeField] private Image crosshairImage;
+    [SerializeField] private Image camcorderImage;
     [SerializeField] private Color normalColor = Color.white;
     [SerializeField] private Color interactColor = Color.grey;
 
@@ -30,5 +31,10 @@ public class UIManager : MonoBehaviour
     public void HideInteractText()
     {
         interactText.gameObject.SetActive(false);
+    }
+
+    public void ShowCamcorderImage()
+    {
+        camcorderImage.gameObject.SetActive(true);
     }
 }

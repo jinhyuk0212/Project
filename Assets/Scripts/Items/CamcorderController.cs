@@ -11,6 +11,7 @@ public class CamcorderController : MonoBehaviour
     [SerializeField] private Volume volume; // 포스트 프로세싱 볼륨
     [SerializeField] private Light nightVisionLight; // 나이트 비전용 라이트
     [SerializeField] private GameObject[] nightVisionObjects; // 나이트비전일 때만 보일 오브젝트들
+    [SerializeField] private UIManager uiManager; // UIManager 컴포넌트를 담는 변수
 
     private FilmGrain filmGrain; // 포스트 프로세싱 효과: 필름 그레인
     private Vignette vignette; // 포스트 프로세싱 효과: 비네팅
@@ -111,23 +112,25 @@ public class CamcorderController : MonoBehaviour
     public void SetCamcorder() // 카메라를 캠코더 모드로 설정
     {
         playerCamera.Lens.FieldOfView = camcorderFOV;
+        uiManager.ShowCamcorderUI(true);
 
         if (filmGrain != null)
             filmGrain.intensity.value = 1.0f;
 
         if (vignette != null)
-            vignette.intensity.value = 0.6f;
+            vignette.intensity.value = 0.5f;
     }
 
     public void SetNormal() // 카메라 원래 상태로 되돌리기
     {
         playerCamera.Lens.FieldOfView = normalFOV;
+        uiManager.ShowCamcorderUI(false);
 
         if (filmGrain != null)
             filmGrain.intensity.value = 0f;
 
         if (vignette != null)
-            vignette.intensity.value = 0.2f;
+            vignette.intensity.value = 0.1f;
     }
 
     private void SetNightVision(bool value) // 나이트 비전 모드 설정
@@ -155,6 +158,6 @@ public class CamcorderController : MonoBehaviour
             filmGrain.intensity.value = value ? 1.0f : (isRaised ? 1.0f : 0f); // 나이트 비전 모드일 때 필름 그레인 강도 설정
 
         if (vignette != null)
-            vignette.intensity.value = value ? 0.7f : (isRaised ? 0.6f : 0.2f); // 나이트 비전 모드일 때 비네팅 강도 설정
+            vignette.intensity.value = value ? 0.3f : (isRaised ? 0.3f : 0.1f); // 나이트 비전 모드일 때 비네팅 강도 설정
     }
 }

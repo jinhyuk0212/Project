@@ -34,14 +34,14 @@ public class PlayerInteractor : MonoBehaviour
 
             if (currentInteractable != null)
             {
-                uiManager.SetCrosshairInteract(); // 상호작용 가능한 오브젝트를 바라보고 있을 때 크로스헤어 변경
-                uiManager.ShowInteractText("Interact"); // 상호작용 가능한 오브젝트를 바라보고 있을 때 상호작용 텍스트 표시
+                UIManager.Instance.SetCrosshairInteract(); // 상호작용 가능한 오브젝트를 바라보고 있을 때 크로스헤어 변경
+                UIManager.Instance.ShowInteractText("Interact"); // 상호작용 가능한 오브젝트를 바라보고 있을 때 상호작용 텍스트 표시
                 return;
             }
         }
 
         currentInteractable = null; // 상호작용 가능한 오브젝트가 없을 때 currentInteractable을 null로 설정
-        uiManager.SetCrosshairNormal(); // 상호작용 가능한 오브젝트를 바라보고 있지 않을 때 크로스헤어 원래대로 변경
-        uiManager.HideInteractText(); // 상호작용 가능한 오브젝트를 바라보고 있지 않을 때 상호작용 텍스트 숨김
+        UIManager.Instance.SetCrosshairNormal(); // 상호작용 가능한 오브젝트를 바라보고 있지 않을 때 크로스헤어 원래대로 변경
+        UIManager.Instance.HideInteractText(); // 상호작용 가능한 오브젝트를 바라보고 있지 않을 때 상호작용 텍스트 숨김
     }
 }

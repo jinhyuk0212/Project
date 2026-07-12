@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private float rotateSpeed = 3f; //회전속도
 
     //기울기 관련 변수
-    private float tiltAmount = 2f; // 좌우 최대 기울기
+    private float tiltAmount = 1f; // 좌우 최대 기울기
     private float tiltSpeed = 8f; // 기울어지고 복귀하는 속도
     private float currentTilt; // 현재 기울기 값
 

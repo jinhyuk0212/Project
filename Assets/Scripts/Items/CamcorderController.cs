@@ -112,7 +112,7 @@ public class CamcorderController : MonoBehaviour
     public void SetCamcorder() // 카메라를 캠코더 모드로 설정
     {
         playerCamera.Lens.FieldOfView = camcorderFOV;
-        uiManager.ShowCamcorderUI(true);
+        UIManager.Instance.ShowCamcorderUI(true); // 캠코더 UI 표시
 
         if (filmGrain != null)
             filmGrain.intensity.value = 1.0f;
@@ -124,7 +124,7 @@ public class CamcorderController : MonoBehaviour
     public void SetNormal() // 카메라 원래 상태로 되돌리기
     {
         playerCamera.Lens.FieldOfView = normalFOV;
-        uiManager.ShowCamcorderUI(false);
+        UIManager.Instance.ShowCamcorderUI(false); // 캠코더 UI 숨기기
 
         if (filmGrain != null)
             filmGrain.intensity.value = 0f;

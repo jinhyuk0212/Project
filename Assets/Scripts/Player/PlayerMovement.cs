@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
         if (playerController.isGrounded) //땅에 닿아있으면
         {
             moveDirection = new Vector3(playerInput.horizontalmove, 0, playerInput.verticalmove);
+            moveDirection = Vector3.ClampMagnitude(moveDirection, 1f); // 대각선 이동 시 이동속도가 빨라지는 것을 방지
             moveDirection = playerController.transform.TransformDirection(moveDirection); // 로컬좌표를 월드좌표로 변환
         }
         else //땅에 닿아있지 않으면

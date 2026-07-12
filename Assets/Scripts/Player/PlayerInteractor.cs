@@ -35,7 +35,7 @@ public class PlayerInteractor : MonoBehaviour
             if (currentInteractable != null)
             {
                 uiManager.SetCrosshairInteract(); // 상호작용 가능한 오브젝트를 바라보고 있을 때 크로스헤어 변경
-                uiManager.ShowInteractText("E"); // 상호작용 가능한 오브젝트를 바라보고 있을 때 상호작용 텍스트 표시
+                uiManager.ShowInteractText("Interact"); // 상호작용 가능한 오브젝트를 바라보고 있을 때 상호작용 텍스트 표시
                 return;
             }
         }

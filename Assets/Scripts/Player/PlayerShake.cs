@@ -1,47 +1,42 @@
 using UnityEngine;
 
-public class HeadBob : MonoBehaviour
+public class PlayerShake : MonoBehaviour
 {
-    [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private PlayerInput playerInput; // 플레이어 입력을 받기 위한 PlayerInput 컴포넌트
 
     [Header("Head Bob")]
-    [SerializeField] private float bobSpeed = 8f;
-    [SerializeField] private float bobAmount = 0.02f;
-    [SerializeField] private float returnSpeed = 8f;
+    [SerializeField] private float bobSpeed = 8f; // 헤드 밥 속도
+    [SerializeField] private float bobAmount = 0.02f; // 헤드 밥 양
+    [SerializeField] private float returnSpeed = 8f; // 원래 위치로 돌아가는 속도
 
     private Vector3 originalPosition;
-    private float timer;
+    private float timer; // 헤드 밥 타이머
 
     private void Start()
     {
         originalPosition = transform.localPosition;
-
-        if (playerInput == null)
-            playerInput = GetComponentInParent<PlayerInput>();
     }
 
     private void Update()
     {
-        bool isMoving =
-            Mathf.Abs(playerInput.horizontalmove) > 0.01f ||
-            Mathf.Abs(playerInput.verticalmove) > 0.01f;
+        bool isMoving = playerInput.horizontalmove != 0 || playerInput.verticalmove != 0; // 움직임 여부 확인
 
-        if (isMoving)
+        if (isMoving) // 플레이어가 움직이고 있을 때
         {
             timer += Time.deltaTime * bobSpeed;
 
             float y = Mathf.Sin(timer) * bobAmount;
 
-            transform.localPosition = originalPosition + new Vector3(0, y, 0f);
+            transform.localPosition = originalPosition + new Vector3(0, y, 0f); // 헤드 밥 적용
         }
-        else
+        else // 플레이어가 움직이지 않고 있을 때
         {
             timer = 0f;
 
             transform.localPosition = Vector3.Lerp(
                 transform.localPosition,
                 originalPosition,
-                Time.deltaTime * returnSpeed);
+                Time.deltaTime * returnSpeed); // 원래 위치로 부드럽게 돌아가기
         }
     }
 }

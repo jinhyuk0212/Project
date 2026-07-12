@@ -5,24 +5,29 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 3f; //이동속도
-    public float rotateSpeed = 3f; //회전속도
-    public float gravity = 10; //중력
-    public Transform head; //머리
+    //이동 관련 변수
     private Vector3 moveDirection; //이동방향
+    private float moveSpeed = 3f; //이동속도
+    private float rotateSpeed = 3f; //회전속도
+
+    //기울기 관련 변수
+    private float tiltAmount = 2f; // 좌우 최대 기울기
+    private float tiltSpeed = 8f; // 기울어지고 복귀하는 속도
+    private float currentTilt; // 현재 기울기 값
+
+    //중력 관련 변수
+    public float gravity = 10; //중력
     private float mouseX, mouseY; //마우스 좌우, 상하 회전값
 
-    private PlayerInput playerInput; //플레이어 입력
-    private Animator playerAnimator; //플레이어 애니메이터
-    private CharacterController playerController; //플레이어 캐릭터 컨트롤러
+    //컴포넌트 변수
+    [SerializeField] private Transform head; //머리
+    [SerializeField] private PlayerInput playerInput; //플레이어 입력
+    [SerializeField] private Animator playerAnimator; //플레이어 애니메이터
+    [SerializeField] private CharacterController playerController; //플레이어 캐릭터 컨트롤러
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-
-        playerInput = GetComponent<PlayerInput>();
-        playerController = GetComponent<CharacterController>();
-        playerAnimator = GetComponent<Animator>();
     }
 
     private void FixedUpdate() //물리기반 업데이트
@@ -52,7 +57,18 @@ public class PlayerMovement : MonoBehaviour
 
         mouseY = Mathf.Clamp(mouseY, -60f, 40f); // 상하 회전 제한
 
+        float targetTilt =
+            -playerInput.horizontalmove * tiltAmount;
+
+        // 현재 기울기를 목표 기울기로 부드럽게 변경
+        currentTilt = Mathf.Lerp(
+            currentTilt,
+            targetTilt,
+            Time.fixedDeltaTime * tiltSpeed
+        );
+
         transform.localRotation = Quaternion.Euler(0, mouseX, 0); //몸 (좌우회전)
-        head.localRotation = Quaternion.Euler(-mouseY, 0, 0); //머리 (상하회전) // 월드좌표로 변환된 이동방향에 이동속도와 프레임시간을 곱하여 이동
+        head.localRotation = Quaternion.Euler(-mouseY, 0, currentTilt);
+        //머리 (상하회전 + 기울기)
     }
 }

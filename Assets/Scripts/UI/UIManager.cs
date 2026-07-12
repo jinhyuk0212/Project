@@ -7,9 +7,10 @@ public class UIManager : MonoBehaviour
 
     [Header("Crosshair")]
     [SerializeField] private Image crosshairImage;
-    [SerializeField] private GameObject camcorderUI;
+    [SerializeField] private CamcorderUI camcorderUI; 
     [SerializeField] private Color normalColor = Color.white;
     [SerializeField] private Color interactColor = Color.grey;
+    public CamcorderUI CamcorderUI => camcorderUI; // 캠코더 UI에 대한 public getter
 
     [Header("Interact Text")]
     [SerializeField] private TMP_Text interactText;
@@ -44,12 +45,7 @@ public class UIManager : MonoBehaviour
 
     public void HideInteractText() //   상호작용 가능한 오브젝트를 바라보고 있지 않을 때 상호작용 텍스트 숨김
     {
-        interactText.gameObject.SetActive(false);
-    }
-
-    public void ShowCamcorderUI(bool show) // 캠코더 UI 표시 여부 설정
-    {
-        camcorderUI.SetActive(show);
+        interactText.gameObject.SetActive(false);   
     }
 
 }

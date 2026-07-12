@@ -112,7 +112,7 @@ public class CamcorderController : MonoBehaviour
     public void SetCamcorder() // 카메라를 캠코더 모드로 설정
     {
         playerCamera.Lens.FieldOfView = camcorderFOV;
-        UIManager.Instance.ShowCamcorderUI(true); // 캠코더 UI 표시
+        UIManager.Instance.CamcorderUI.ShowCamcorderUI(true); // 캠코더 UI 표시
 
         if (filmGrain != null)
             filmGrain.intensity.value = 1.0f;
@@ -124,7 +124,7 @@ public class CamcorderController : MonoBehaviour
     public void SetNormal() // 카메라 원래 상태로 되돌리기
     {
         playerCamera.Lens.FieldOfView = normalFOV;
-        UIManager.Instance.ShowCamcorderUI(false); // 캠코더 UI 숨기기
+        UIManager.Instance.CamcorderUI.ShowCamcorderUI(false); // 캠코더 UI 숨기기
 
         if (filmGrain != null)
             filmGrain.intensity.value = 0f;
@@ -138,7 +138,11 @@ public class CamcorderController : MonoBehaviour
         isNightVision = value; // 나이트 비전 모드 상태 업데이트
 
         if (nightVisionLight != null) // 나이트 비전 라이트 활성화/비활성화
+        {
             nightVisionLight.enabled = value;
+            //UIManager.Instance.CamcorderUI.SetNightVision(value);
+        }
+
 
         foreach (GameObject obj in nightVisionObjects) // 나이트 비전 모드일 때만 보일 오브젝트 활성화/비활성화
         {

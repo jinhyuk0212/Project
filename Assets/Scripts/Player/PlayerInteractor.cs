@@ -4,21 +4,15 @@ public class PlayerInteractor : MonoBehaviour
 {
     private RaycastHit hit; //ray의 충돌 정보를 담는 변수
     private Ray ray; //ray를 담는 변수
-    private FlashLight flashLight; // FlashLight 컴포넌트를 담는 변수
-    private PlayerInput playerinput; // PlayerInput 컴포넌트를 담는 변수
-    private PlayerInventory inventory; // PlayerInventory 컴포넌트를 담는 변수
-    private IInteractable currentInteractable; // 현재 상호작용 가능한 오브젝트를 담는 변수
+
+    [SerializeField] private PlayerInput playerinput; // PlayerInput 컴포넌트를 담는 변수
+    [SerializeField] private PlayerInventory inventory; // PlayerInventory 컴포넌트를 담는 변수
     [SerializeField] private UIManager uiManager; // UIManager 컴포넌트를 담는 변수
-    [SerializeField] private Transform cameraTransform;
-    public FlashLight FlashLight => flashLight; // FlashLight 컴포넌트에 대한 public getter
+    [SerializeField] private Transform cameraTransform; // 카메라 Transform을 담는 변수
+
+    private IInteractable currentInteractable; // 현재 상호작용 가능한 오브젝트를 담는 변수
     public PlayerInventory Inventory => inventory; // PlayerInventory 컴포넌트에 대한 public getter
 
-    private void Start()
-    {
-        playerinput = GetComponent<PlayerInput>();
-        inventory = GetComponent<PlayerInventory>();
-        flashLight = GetComponentInChildren<FlashLight>(); 
-    }
     private void Update()
     {
         CheckInteractable(); // 매 프레임 바라보는 대상 체크

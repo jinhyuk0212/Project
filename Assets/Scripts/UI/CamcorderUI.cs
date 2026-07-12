@@ -19,7 +19,7 @@ public class CamcorderUI : MonoBehaviour
     private float recordTime;
     private bool isRecording;
 
-    private void Update()
+    private void Update() // 매 프레임마다 기록 시간 업데이트
     {
         if (!isRecording)
             return;
@@ -28,9 +28,10 @@ public class CamcorderUI : MonoBehaviour
         UpdateRecordTime();
     }
 
-    public void ShowCamcorderUI(bool value)
+    public void ShowCamcorderUI(bool value) // 캠코더 UI 활성화/비활성화
     {
         gameObject.SetActive(value);
+        SetBattery(100f); // 캠코더 UI가 활성화될 때 배터리 상태를 초기화
     }
 
     public void SetBattery(float battery)
@@ -64,11 +65,11 @@ public class CamcorderUI : MonoBehaviour
         }
     }
 
-    public void SetNightVision(bool value)
+    public void SetNightVision(bool value) // 나이트비전 UI 활성화/비활성화
     {
         nvImage.enabled = value;
     }
-    private void UpdateRecordTime() 
+    private void UpdateRecordTime() // 기록 시간 업데이트
     {
         int totalSeconds = Mathf.FloorToInt(recordTime);
         int hours = totalSeconds / 3600;

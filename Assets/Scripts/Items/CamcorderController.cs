@@ -93,6 +93,8 @@ public class CamcorderController : MonoBehaviour
             currentEnergy += rechargeSpeed * Time.deltaTime;
             currentEnergy = Mathf.Clamp(currentEnergy, 0f, maxEnergy);
         }
+
+        UIManager.Instance.CamcorderUI.SetBattery(currentEnergy); // 캠코더 UI 배터리 상태 업데이트
     }
 
 

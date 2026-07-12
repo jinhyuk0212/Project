@@ -7,7 +7,6 @@ public class PlayerInteractor : MonoBehaviour
 
     [SerializeField] private PlayerInput playerinput; // PlayerInput 컴포넌트를 담는 변수
     [SerializeField] private PlayerInventory inventory; // PlayerInventory 컴포넌트를 담는 변수
-    [SerializeField] private UIManager uiManager; // UIManager 컴포넌트를 담는 변수
     [SerializeField] private Transform cameraTransform; // 카메라 Transform을 담는 변수
 
     private IInteractable currentInteractable; // 현재 상호작용 가능한 오브젝트를 담는 변수
@@ -34,14 +33,14 @@ public class PlayerInteractor : MonoBehaviour
 
             if (currentInteractable != null)
             {
-                UIManager.Instance.SetCrosshairInteract(); // 상호작용 가능한 오브젝트를 바라보고 있을 때 크로스헤어 변경
-                UIManager.Instance.ShowInteractText("Interact"); // 상호작용 가능한 오브젝트를 바라보고 있을 때 상호작용 텍스트 표시
+                UIManager.Instance.InteractUI.ShowInteractText("Interact"); // 상호작용 가능한 오브젝트를 바라보고 있을 때 상호작용 텍스트 표시
+                UIManager.Instance.InteractUI.SetCrosshairInteract(); // 상호작용 가능한 오브젝트를 바라보고 있을 때 크로스헤어 변경
                 return;
             }
         }
 
         currentInteractable = null; // 상호작용 가능한 오브젝트가 없을 때 currentInteractable을 null로 설정
-        UIManager.Instance.SetCrosshairNormal(); // 상호작용 가능한 오브젝트를 바라보고 있지 않을 때 크로스헤어 원래대로 변경
-        UIManager.Instance.HideInteractText(); // 상호작용 가능한 오브젝트를 바라보고 있지 않을 때 상호작용 텍스트 숨김
+        UIManager.Instance.InteractUI.SetCrosshairNormal(); // 상호작용 가능한 오브젝트를 바라보고 있지 않을 때 크로스헤어 원래대로 변경
+        UIManager.Instance.InteractUI.HideInteractText(); // 상호작용 가능한 오브젝트를 바라보고 있지 않을 때 상호작용 텍스트 숨김
     }
 }

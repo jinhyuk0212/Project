@@ -29,7 +29,7 @@ public class CamcorderController : MonoBehaviour
     private bool isNightVision = false; // 나이트 비전 모드 활성화 여부
     private bool isAnimating = false; // 애니메이션 진행 중인지 여부
 
-    private void Awake()
+    private void Start()
     {
         volume.profile.TryGet(out filmGrain);
         volume.profile.TryGet(out vignette);
@@ -140,7 +140,7 @@ public class CamcorderController : MonoBehaviour
         if (nightVisionLight != null) // 나이트 비전 라이트 활성화/비활성화
         {
             nightVisionLight.enabled = value;
-            //UIManager.Instance.CamcorderUI.SetNightVision(value);
+            UIManager.Instance.CamcorderUI.SetNightVision(value); // 캠코더 UI 나이트 비전 아이콘 활성화/비활성화
         }
 
 

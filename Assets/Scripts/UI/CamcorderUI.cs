@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class CamcorderUI : MonoBehaviour
 {
     [Header("Battery")]
-    [SerializeField] private Image batteryImage;
+    [SerializeField] private Image batteryImage; 
     [SerializeField] private TMP_Text batteryPercentText;
     [SerializeField] private Sprite[] batterySprites;
     // 순서: 0%, 25%, 50%, 75%, 100%
@@ -68,7 +68,7 @@ public class CamcorderUI : MonoBehaviour
     {
         nvImage.enabled = value;
     }
-    private void UpdateRecordTime()
+    private void UpdateRecordTime() 
     {
         int totalSeconds = Mathf.FloorToInt(recordTime);
         int hours = totalSeconds / 3600;

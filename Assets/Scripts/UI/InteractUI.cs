@@ -1,0 +1,35 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class InteractUI : MonoBehaviour
+{
+    [Header("Crosshair")]
+    [SerializeField] private Image crosshairImage;
+    [SerializeField] private Color normalColor = Color.white;
+    [SerializeField] private Color interactColor = Color.grey;
+
+    [Header("Interact Text")]
+    [SerializeField] private TMP_Text interactText;
+
+    public void SetCrosshairNormal() // 상호작용 가능한 오브젝트를 바라보고 있지 않을 때 크로스헤어 원래대로 변경
+    {
+        crosshairImage.color = normalColor;
+    }
+
+    public void SetCrosshairInteract() // 상호작용 가능한 오브젝트를 바라보고 있을 때 크로스헤어 변경
+    {
+        crosshairImage.color = interactColor;
+    }
+
+    public void ShowInteractText(string text) // 상호작용 가능한 오브젝트를 바라보고 있을 때 상호작용 텍스트 표시
+    {
+        interactText.text = text;
+        interactText.gameObject.SetActive(true);
+    }
+
+    public void HideInteractText() // 상호작용 가능한 오브젝트를 바라보고 있지 않을 때 상호작용 텍스트 숨김
+    {
+        interactText.gameObject.SetActive(false);
+    }
+}

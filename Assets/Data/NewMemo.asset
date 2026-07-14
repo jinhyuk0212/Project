@@ -12,7 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68b110e1c387e9a4ab977f7b16f08f8a, type: 3}
   m_Name: NewMemo
   m_EditorClassIdentifier: Assembly-CSharp::MemoData
-  memoID: 
-  title: 
-  content: 
+  memoID: TestMemo
+  title: TestTitle
+  content: '
+
+    This is Test Memo
+
+
+    " MemoUi Test "
+
+    MemoScripts Test'
   memoImage: {fileID: 0}

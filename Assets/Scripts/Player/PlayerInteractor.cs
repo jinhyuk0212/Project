@@ -16,7 +16,7 @@ public class PlayerInteractor : MonoBehaviour
     {
         CheckInteractable(); // 매 프레임 바라보는 대상 체크
 
-        if (playerinput.interact && currentInteractable != null) // 상호작용 입력이 들어왔고, 현재 상호작용 가능한 오브젝트가 존재하면
+        if (Input.GetKeyDown(KeyCode.E) && currentInteractable != null) // 상호작용 입력이 들어왔고, 현재 상호작용 가능한 오브젝트가 존재하면
         {
             currentInteractable.Interact(this); // 상호작용 실행
             Debug.Log("Interact Input Detected");

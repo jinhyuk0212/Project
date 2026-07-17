@@ -7,7 +7,7 @@ public class Door : MonoBehaviour, IInteractable
     private bool isUnlocked = false; // 문 잠금 상태
     private float doorOpenAngle = 90f;
     private float doorCloseAngle = 0f;
-    private float smooth = 2f;
+    private float smooth = 1f; // 문 회전 속도
 
     private Quaternion targetRotation;
 

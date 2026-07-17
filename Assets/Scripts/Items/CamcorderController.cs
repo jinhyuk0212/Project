@@ -155,9 +155,9 @@ public class CamcorderController : MonoBehaviour
         if (colorAdjustments != null) // 색상 조정 효과 적용
         {
             colorAdjustments.colorFilter.value = value ? Color.green : Color.white;
-            colorAdjustments.postExposure.value = value ? 0.3f : 0f;
+            colorAdjustments.postExposure.value = value ? 0.3f : -1.2f;
             colorAdjustments.saturation.value = value ? -40f : 0f;
-            colorAdjustments.contrast.value = value ? 30f : 0f;
+            colorAdjustments.contrast.value = value ? 30f : 20f;
         }
 
         if (filmGrain != null)
